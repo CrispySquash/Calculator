@@ -78,8 +78,8 @@ function clearCalc() {
     operatorValue = null;
 }
 
-//
-function setNums() {
+//sets default values without changing calc display
+function setDefaults() {
     numValue = null;
     numValue2 = null;
     operatorValue = null;
@@ -97,7 +97,7 @@ function callOperate() {
         display.innerHTML = Math.round((operate(numValue, numValue2, operatorValue) + Number.EPSILON) * 100) / 100;
     } else { return; }
 
-    setNums();
+    setDefaults();
 }
 
 //saves values for calculation when an operator is selected
