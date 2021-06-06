@@ -87,7 +87,11 @@ function setNums() {
 }
 //function that calls on the operate function when equals is selected
 function callOperate() {
-    // numValue2 = display.innerHTML;
+    if(numValue2 == 0){
+        alert("Please do not divide by zero");
+        clearCalc();
+        return;
+    }
     if (numValue !== null && numValue2 !== null && operatorValue !== null) {
         display.innerHTML = '';
         display.innerHTML = Math.round((operate(numValue, numValue2, operatorValue) + Number.EPSILON) * 100) / 100;
@@ -108,9 +112,6 @@ function saveValues(clicked) {
 
 //displays numbers and stores value for calculation
 function displayNumber(clicked) {
-    if (this.id === '0' && displayValue == '') {
-        return;
-    }
     displayValue += this.id;
     display.innerHTML = displayValue;
 
