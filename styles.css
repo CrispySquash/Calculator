@@ -1,0 +1,28 @@
+#container {
+    height: 26rem;
+    width: 20rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+}
+
+#calculator {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#display {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    height: 20rem;
+    width: 18rem;
+}
