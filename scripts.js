@@ -1,20 +1,20 @@
 //Operator Functions
-function Operate(num1, num2, operator) {
+function operate(num1, num2, operator) {
     switch (operator) {
         case '+':
-            let sum = Add(num1, num2);
+            let sum = add(num1, num2);
             return sum;
             break;
         case '-':
-            let difference = Subtract(num1, num2);
+            let difference = subtract(num1, num2);
             return difference;
             break;
         case '*':
-            let product = Multiply(num1, num2);
+            let product = multiply(num1, num2);
             return product;
             break;
         case '/':
-            let quotient = Divide(num1, num2);
+            let quotient = divide(num1, num2);
             return quotient;
             break;
         default:
@@ -22,22 +22,22 @@ function Operate(num1, num2, operator) {
     }
 }
 
-function Add(x, y) {
+function add(x, y) {
     let sum = 0;
-    sum = x + y;
+    sum = +x + +y;
     return sum;
 }
-function Subtract(x, y) {
+function subtract(x, y) {
     let difference = 0;
     difference = x - y;
     return difference;
 }
-function Multiply(x, y) {
+function multiply(x, y) {
     let product = 0;
     product = x * y;
     return product;
 }
-function Divide(x, y) {
+function divide(x, y) {
     let quotient = 0;
     quotient = x / y;
     return quotient;
@@ -45,9 +45,11 @@ function Divide(x, y) {
 
 //setting up display and calculation functions
 let display = document.getElementById('display');
+let displayValue = '';
 let currentDisplay = '';
-let numValue = '';
-let operatorValue = '';
+let numValue = null;
+let numValue2 = null;
+let operatorValue = null;
 
 document.getElementById('0').onclick = displayNumber;
 document.getElementById('1').onclick = displayNumber;
@@ -63,21 +65,58 @@ document.getElementById('+').onclick = saveValues;
 document.getElementById('-').onclick = saveValues;
 document.getElementById('*').onclick = saveValues;
 document.getElementById('/').onclick = saveValues;
+document.getElementById('=').onclick = callOperate;
+document.getElementById('clear').onclick = clearCalc;
 
-//saves values for calculation
+//clear calculator function
+function clearCalc() {
+    display.innerHTML = '';
+    displayValue = '';
+    currentDisplay = '';
+    numValue = null;
+    numValue2 = null;
+    operatorValue = null;
+}
+
+//
+function setNums() {
+    numValue = null;
+    numValue2 = null;
+    operatorValue = null;
+    displayValue = '';
+}
+//function that calls on the operate function when equals is selected
+function callOperate() {
+    // numValue2 = display.innerHTML;
+    if (numValue !== null && numValue2 !== null && operatorValue !== null) {
+        display.innerHTML = '';
+        display.innerHTML = Math.round((operate(numValue, numValue2, operatorValue) + Number.EPSILON) * 100) / 100;
+    } else { return; }
+
+    setNums();
+}
+
+//saves values for calculation when an operator is selected
 function saveValues(clicked) {
+    if (numValue !== null) {
+        callOperate();
+    }
     operatorValue = this.id;
-    numValue = currentDisplay;
-    
+    numValue = display.innerHTML;
+    displayValue = '';
 }
 
 //displays numbers and stores value for calculation
 function displayNumber(clicked) {
-    if(this.id == 0 && currentDisplay == 0){
+    if (this.id === '0' && displayValue == '') {
         return;
     }
-    currentDisplay += this.id;
-    display.innerHTML = currentDisplay;
+    displayValue += this.id;
+    display.innerHTML = displayValue;
+
+    if(numValue !== null){
+        numValue2 = displayValue;
+    }
 }
 
 
