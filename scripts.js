@@ -85,6 +85,7 @@ function setDefaults() {
     operatorValue = null;
     displayValue = '';
 }
+
 //function that calls on the operate function when equals is selected
 function callOperate() {
     if(numValue2 == 0){
